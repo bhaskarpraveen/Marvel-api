@@ -1,0 +1,15 @@
+.center{
+    text-align: center;
+}
+.imgndes{
+    width: 500px;
+}
+.comics{
+    width: 500px;
+}
+.series{
+    width: 500px;
+}
+.data{
+    display: inline-block !important;
+}

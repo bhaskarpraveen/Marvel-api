@@ -1,0 +1,67 @@
+
+<div class="center">
+    <h1>The MARVEL API</h1>
+ <div>
+    <mat-form-field appearance="fill">
+        <mat-label>Search preference</mat-label>
+        <mat-select [(ngModel)]="data_type" >
+          <mat-option value="0">Character</mat-option>
+          <mat-option value="1">comics</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <br>
+
+        <mat-form-field class="example-full-width">
+          <mat-label>Search here:</mat-label> 
+          <textarea matInput #character></textarea>
+        </mat-form-field> <br>
+        <button mat-raised-button color="primary" (click)="getData(character.value)">Submit</button>
+    </div> 
+    <h1 *ngIf="error">{{error}}</h1>
+   <div class="data">
+       <div *ngIf="data">
+    <div *ngIf="d_type=='0';else comic" >
+        <mat-card class="imgndes"> 
+    <img [src]="sanitizeImageUrl(image)" height="150px" width="150px" alt="Failed to load">
+    <p *ngIf="data">{{data.data.results[0].description}}</p> </mat-card>
+            <br>
+   <mat-card class="comics">
+   <h2 *ngIf="data.data.results[0].comics.available">Total comics available: {{data.data.results[0].comics.available}}</h2>
+   <h2 *ngIf="data.data.results[0].comics.items">comics available (Returning 5 records):</h2>
+   
+   <p *ngFor="let comic of data.data.results[0].comics.items| slice:0:6">
+       {{comic.name}}
+   </p>
+</mat-card>
+<br>
+<mat-card class="series">
+   <h2 *ngIf="data.data.results[0].series.available">Total Series available: {{data.data.results[0].series.available}}</h2>
+   <h2 *ngIf="data.data.results[0].series.items">Series available (Returning 5 records):</h2>
+   <p *ngFor="let series of data.data.results[0].series.items| slice:0:6">
+       {{series.name}}
+   </p>
+</mat-card>
+  
+</div>
+</div>
+<ng-template #comic>
+<br>
+
+<div *ngIf="data">
+<div *ngIf="d_type=='1' ">
+    <img [src]="sanitizeImageUrl(image)" height="150px" width="150px" alt="Failed to load">
+    <mat-card class="imgndes"> 
+        <div *ngFor="let data of data.data.results">
+            <p>{{data.title}}</p> 
+        <p>{{data.description}}</p> 
+        <p>price: {{data.prices[0].price}}</p>
+    </div>
+</mat-card>
+
+</div>
+</div>
+</ng-template>
+
+</div>
+
+</div>
